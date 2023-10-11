@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 
 const GetAccountList = () => {
-    console.log("rendering")
+
     const navigate = useNavigate();
 
 
@@ -23,8 +23,8 @@ const GetAccountList = () => {
             });
     }, [])
 
-    
-    const UpdateProofHandler = (id:any) =>(
+
+    const UpdateProofHandler = (id: any) => (
 
         navigate(`/UploadProofs/${id}`)
     );
@@ -36,20 +36,20 @@ const GetAccountList = () => {
     );
 
     const DeleteHandler = (id: any) => {
-        
+
 
         fetch('https://localhost:7267/DeleteAccount', {
             method: "POST",
-            headers : {"Content-type":"application/json;charset=utf-8"},
-            body:JSON.stringify({id})
+            headers: { "Content-type": "application/json;charset=utf-8" },
+            body: JSON.stringify({ id })
 
         }).
-            then((res) => { 
-                if(res.ok)
-                {
+            then((res) => {
+                if (res.ok) {
                     return alert("Account Deleted Successfully");
-                } });
-       
+                }
+            });
+
     }
 
     return (
@@ -74,10 +74,10 @@ const GetAccountList = () => {
                             <td>{item?.proofs?.map((x: any, index: number) => {
                                 return (<>
                                     <div key={index}>{x.proofType}:{x.proofValue}</div>
-                                   
+
                                 </>)
                             })}
-                             <div><Button onClick={()=>(UpdateProofHandler(item.id))}>UploadProofs</Button></div>
+                                <div><Button onClick={() => (UpdateProofHandler(item.id))}>UploadProofs</Button></div>
                             </td>
 
                             <td>

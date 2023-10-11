@@ -1,8 +1,8 @@
 
-
-export const createAccount = (accountdetails:{})=>{
+//Action Generator
+export const createAccount = (accountdetails: {}) => {
     return {
-        type : 'createAccount',
-        payload : accountdetails
+        type: 'createAccount',
+        payload: accountdetails
     }
 }

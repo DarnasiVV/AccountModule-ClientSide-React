@@ -2,8 +2,6 @@
 
 //reducers declares the state and action
 
-
-
 const initial: any = {
     initialdata: [{}],
 
