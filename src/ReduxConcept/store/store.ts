@@ -8,7 +8,7 @@
 
 //  export default store;
 import { configureStore,combineReducers } from "@reduxjs/toolkit"; 
-import { accountlistdata } from './Reducers/AccounReducer';
+import { accountlistdata } from '../Reducers/AccounReducer';
 
 const allreducers = combineReducers({
     accountList: accountlistdata, 

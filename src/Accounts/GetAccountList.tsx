@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Button, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getaccountlistdata } from "./actions/getaccountlistaction";
+import { getaccountlistdata } from "../ReduxConcept/actions/getaccountlistaction";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router";
 

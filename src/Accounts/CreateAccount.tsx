@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createAccount } from "./actions/CreateAccountAction";
+import { createAccount } from "../ReduxConcept/actions/CreateAccountAction";
 import { useParams } from "react-router";
-import { updateAccount } from "./actions/UpdateAccountAction";
+import { updateAccount } from "../ReduxConcept/actions/UpdateAccountAction";
 import UploadProofs from "./UploadProofs";
 
 

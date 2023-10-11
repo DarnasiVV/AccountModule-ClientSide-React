@@ -1,9 +1,9 @@
 
 import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
-import CreateAccount from './CreateAccount';
-import GetAccountList from './GetAccountList';
-import GetAccountbyId from './GetAccount';
-import  UploadProofs  from './UploadProofs';
+import CreateAccount from '../Accounts/CreateAccount';
+import GetAccountList from '../Accounts/GetAccountList';
+import GetAccountbyId from '../Accounts/GetAccount';
+import  UploadProofs  from '../Accounts/UploadProofs';
 
 export const MyRoutes = () => {
 
