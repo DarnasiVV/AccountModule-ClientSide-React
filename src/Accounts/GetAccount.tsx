@@ -5,7 +5,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 
 function GetAccountbyId() {
-   
+
    const [Id, setId] = useState('');
    const [details, setDetails] = useState<any>({});
 
@@ -38,10 +38,11 @@ function GetAccountbyId() {
                   <b>Name</b> : {details?.accountHolderName}<br />
                   <b>Address</b> :   {details?.address} <br />
                   <b>PhoneNumber</b> : {details?.phoneNumber} <br />
-                  <b>Proofs </b>:  {details?.proofs?.map((item:any,index:number)=>
-                  {return (<>
-                  <div key={index}>{item.proofType}:{item.proofValue}</div>
-                  </>)})} <br />
+                  <b>Proofs </b>:  {details?.proofs?.map((item: any, index: number) => {
+                     return (<>
+                        <div key={index}>{item.proofType}:{item.proofValue}</div>
+                     </>)
+                  })} <br />
                </div>
             </Col>
          </Row>

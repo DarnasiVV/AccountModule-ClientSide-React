@@ -4,36 +4,23 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 
-// interface props {
-//     submitdisable: boolean ,
-//     proofs : {
-//         ProofType : string,
-//         ProofValue : string
-//     },
-//     saveHandle : () => void;
-// }
-
-
 export default function UploadProofs(props: any) {
 
-    const {submitdisable:submitbuttondisable, proofs } = props;
-    
+    const { submitdisable: submitbuttondisable, proofs } = props;
+
     const data = useSelector((state: any) => state.accountList.initialdata);
     const { id } = useParams();
 
     const filteredData = data?.find((x: any) => (x.id === id));
 
-    // const [Proof, setProof] = useState([{
-    //     ProofType: "Pan",
-    //     ProofValue: " "
-    // }])
+
     const [proof, setProof] = useState({
         ProofType: "Pan",
         ProofValue: ""
     })
 
     const submitHandler = () => {
-        
+
         const Proofs = [{
             accountId: filteredData?.id,
             ProofType: "",
@@ -60,13 +47,11 @@ export default function UploadProofs(props: any) {
         <Container>
 
             <Row>
-
-
                 <Col sm='3'>
                     <Form.Label>ProofType</Form.Label>
-                    <Form.Select  
-                     onChange={(e) => (setProof({...proof,ProofType : e.target.value}))}
-                     defaultValue={proof.ProofValue}
+                    <Form.Select
+                        onChange={(e) => (setProof({ ...proof, ProofType: e.target.value }))}
+                        defaultValue={proof.ProofValue}
                     >
                         <option value={"Pan"} label="Pan"> </option>
                         <option value={"Aadhar"} label="Aadhar"> </option>
@@ -81,7 +66,7 @@ export default function UploadProofs(props: any) {
                     <Form.Label>ProofValue</Form.Label>
                     <Form.Control
                         type=" text"
-                        onChange={(e) => (setProof({...proof,ProofValue : e.target.value}))}
+                        onChange={(e) => (setProof({ ...proof, ProofValue: e.target.value }))}
                         value={proof.ProofValue}
                     >
                     </Form.Control>

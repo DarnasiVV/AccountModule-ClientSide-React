@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createAccount } from "./actions/CreateAccountAction";
+import { createAccount } from "../ReduxConcept/actions/CreateAccountAction";
 import { useParams } from "react-router";
-import { updateAccount } from "./actions/UpdateAccountAction";
+import { updateAccount } from "../ReduxConcept/actions/UpdateAccountAction";
 import UploadProofs from "./UploadProofs";
-
-
-
 
 
 export default function CreateAccount() {
 
-    const [submitdisable,SetSubmitDisable] = useState<boolean>(true);
+    const [submitdisable, SetSubmitDisable] = useState<boolean>(true);
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const data = useSelector((state: any) => state.accountList.initialdata);
@@ -26,8 +23,8 @@ export default function CreateAccount() {
         Address: filteredData?.address,
         PhoneNumber: filteredData?.phoneNumber,
         Proofs: {
-            ProofType : "",
-            ProofValue : ""
+            ProofType: "",
+            ProofValue: ""
         }
     });
 
@@ -41,7 +38,7 @@ export default function CreateAccount() {
 
 
     const handleSave = () => {
-        
+
         fetch('https://localhost:7267/CreateAccount', {
             method: 'POST',
             headers:
@@ -65,8 +62,8 @@ export default function CreateAccount() {
             Address: "",
             PhoneNumber: "",
             Proofs: {
-                ProofType : "",
-                ProofValue : ""
+                ProofType: "",
+                ProofValue: ""
             }
         });
 
@@ -78,9 +75,9 @@ export default function CreateAccount() {
             Id: filteredData?.id,
             Address: accountdetail?.Address,
             PhoneNumber: accountdetail?.PhoneNumber,
-            Proofs : {
-                ProofType : "",
-                ProofValue : ""
+            Proofs: {
+                ProofType: "",
+                ProofValue: ""
             }
         }
 
@@ -104,8 +101,8 @@ export default function CreateAccount() {
             Address: "",
             PhoneNumber: "",
             Proofs: {
-                ProofType : "",
-                ProofValue : ""
+                ProofType: "",
+                ProofValue: ""
             }
         });
     }
@@ -115,7 +112,7 @@ export default function CreateAccount() {
         <>
             <Container>
                 <h1>Create Account</h1>
-                 
+
                 <Col sm='3'>
                     <Form.Label>AccountHolderName</Form.Label>
                     <Form.Control
@@ -144,16 +141,16 @@ export default function CreateAccount() {
                     >
                     </Form.Control>
                 </Col>
-                
+
 
                 <Col>
-                <UploadProofs
-                 submitdisable = {submitdisable}
-                 Proofs = {accountdetail.Proofs}
-                 handleSave = {() => handleSave()}
-                />
+                    <UploadProofs
+                        submitdisable={submitdisable}
+                        Proofs={accountdetail.Proofs}
+                        handleSave={() => handleSave()}
+                    />
                 </Col>
-                
+
                 <Col sm='3'>
                     {isEdit ? <>
                         <Button onClick={() => handleUpdate()}>Update</Button>
