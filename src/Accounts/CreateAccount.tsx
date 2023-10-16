@@ -5,9 +5,12 @@ import { createAccount } from "../ReduxConcept/actions/CreateAccountAction";
 import { useParams } from "react-router";
 import { updateAccount } from "../ReduxConcept/actions/UpdateAccountAction";
 import UploadProofs from "./UploadProofs";
+import { ProofContext } from "../Contexts/UploadProofContext";
 
 
 export default function CreateAccount() {
+    const [accountHolderproofType, SetAccountHolderProofType] = useState<string>("");
+    const [accountHolderproofValue, SetAccountHolderProofValue] = useState<string>("");
 
     const [submitdisable, SetSubmitDisable] = useState<boolean>(true);
 
@@ -22,10 +25,10 @@ export default function CreateAccount() {
         AccountHolderName: filteredData?.accountHolderName,
         Address: filteredData?.address,
         PhoneNumber: filteredData?.phoneNumber,
-        Proofs: {
+        Proofslist:[ {
             ProofType: "",
             ProofValue: ""
-        }
+        }]
     });
 
 
@@ -38,6 +41,10 @@ export default function CreateAccount() {
 
 
     const handleSave = () => {
+        const details = {...accountdetail,Proofslist:[{
+            ProofType: accountHolderproofType,
+            ProofValue: accountHolderproofValue
+        }]}
 
         fetch('https://localhost:7267/CreateAccount', {
             method: 'POST',
@@ -45,7 +52,7 @@ export default function CreateAccount() {
             {
                 "Content-type": "application/json;charset=utf-8"
             },
-            body: JSON.stringify(accountdetail)
+            body: JSON.stringify(details)
         }).then((res) => {
             if (res.ok) {
                 return alert("Account Created Successfully");
@@ -55,16 +62,16 @@ export default function CreateAccount() {
                 throw new Error("Network response was not ok");
             }
 
-        }).then(() => { dispatch(createAccount(accountdetail)); });
+        }).then(() => { dispatch(createAccount(details)); });
 
         setAccountDetail({
             AccountHolderName: "",
             Address: "",
             PhoneNumber: "",
-            Proofs: {
+            Proofslist: [{
                 ProofType: "",
                 ProofValue: ""
-            }
+            }]
         });
 
     }
@@ -75,7 +82,7 @@ export default function CreateAccount() {
             Id: filteredData?.id,
             Address: accountdetail?.Address,
             PhoneNumber: accountdetail?.PhoneNumber,
-            Proofs: {
+            proofslist: {
                 ProofType: "",
                 ProofValue: ""
             }
@@ -100,10 +107,10 @@ export default function CreateAccount() {
             AccountHolderName: "",
             Address: "",
             PhoneNumber: "",
-            Proofs: {
+            Proofslist:[ {
                 ProofType: "",
                 ProofValue: ""
-            }
+            }]
         });
     }
 
@@ -144,18 +151,21 @@ export default function CreateAccount() {
 
 
                 <Col>
-                    <UploadProofs
-                        submitdisable={submitdisable}
-                        Proofs={accountdetail.Proofs}
-                        handleSave={() => handleSave()}
-                    />
+                    <ProofContext.Provider value={{accountHolderproofType,SetAccountHolderProofType,
+                    accountHolderproofValue,SetAccountHolderProofValue
+                    }}>
+                        <UploadProofs
+                            submitdisable={submitdisable}
+                        />
+                    </ProofContext.Provider>
                 </Col>
 
                 <Col sm='3'>
                     {isEdit ? <>
                         <Button onClick={() => handleUpdate()}>Update</Button>
                     </>
-                        : <>
+                        :
+                        <>
                             <Button onClick={() => handleSave()}>Save</Button>
                         </>
                     }
