@@ -2,16 +2,16 @@ import { useContext, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { ProofContext } from "../Contexts/UploadProofContext";
+import { PContext, ProofContext } from "../Contexts/UploadProofContext";
 
 
 export default function UploadProofs(props: any) {
 
     const [proof, setProof] = useState<any>({
-        proofType : "",
-        proofValue : ""
+        proofType: "",
+        proofValue: ""
     })
-    const { submitdisable: submitbuttondisable} = props;
+    const { submitdisable: submitbuttondisable } = props;
 
     const data = useSelector((state: any) => state.accountList.initialdata);
     const { id } = useParams();
@@ -21,16 +21,17 @@ export default function UploadProofs(props: any) {
     const s = useContext(ProofContext);
 
 
-    if (s === undefined) {
- 
-     return <div>Context is undefined</div>;
- }
- 
- const {accountHolderproofType,SetAccountHolderProofType,
-    accountHolderproofValue,SetAccountHolderProofValue } = s;
+    const { accountHolderproofType, SetAccountHolderProofType,
+        accountHolderproofValue, SetAccountHolderProofValue } = s as PContext;
+    if (!SetAccountHolderProofType && !SetAccountHolderProofValue) {
+        console.log("Got Undefined");
+    }
+    else {
 
-    SetAccountHolderProofType(proof.proofType);
-    SetAccountHolderProofValue(proof.proofValue);
+        SetAccountHolderProofType(proof.proofType);
+        SetAccountHolderProofValue(proof.proofValue);
+    }
+
 
     const submitHandler = () => {
 
@@ -85,11 +86,11 @@ export default function UploadProofs(props: any) {
 
             </Row>
             <Col>
-                {submitbuttondisable ? 
-                <>
-                </> 
-                : 
-                <> <Button onClick={() => (submitHandler())}>Submit</Button></>}
+                {submitbuttondisable ?
+                    <>
+                    </>
+                    :
+                    <> <Button onClick={() => (submitHandler())}>Submit</Button></>}
             </Col>
 
         </Container>
