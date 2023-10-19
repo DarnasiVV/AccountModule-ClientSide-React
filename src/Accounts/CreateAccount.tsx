@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createAccount } from "../ReduxConcept/actions/CreateAccountAction";
 import { useParams } from "react-router";
@@ -25,7 +25,7 @@ export default function CreateAccount() {
         AccountHolderName: filteredData?.accountHolderName,
         Address: filteredData?.address,
         PhoneNumber: filteredData?.phoneNumber,
-        Proofslist:[ {
+        Proofslist: [{
             ProofType: "",
             ProofValue: ""
         }]
@@ -41,10 +41,12 @@ export default function CreateAccount() {
 
 
     const handleSave = () => {
-        const details = {...accountdetail,Proofslist:[{
-            ProofType: accountHolderproofType,
-            ProofValue: accountHolderproofValue
-        }]}
+        const details = {
+            ...accountdetail, Proofslist: [{
+                ProofType: accountHolderproofType,
+                ProofValue: accountHolderproofValue
+            }]
+        }
 
         fetch('https://localhost:7267/CreateAccount', {
             method: 'POST',
@@ -107,7 +109,7 @@ export default function CreateAccount() {
             AccountHolderName: "",
             Address: "",
             PhoneNumber: "",
-            Proofslist:[ {
+            Proofslist: [{
                 ProofType: "",
                 ProofValue: ""
             }]
@@ -118,58 +120,60 @@ export default function CreateAccount() {
     return (
         <>
             <Container>
-                <h1>Create Account</h1>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>Create Account</Card.Title>
+                        <Col sm='3'>
+                            <Form.Label>AccountHolderName</Form.Label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setAccountDetail({ ...accountdetail, AccountHolderName: e.target.value }) }}
+                                value={accountdetail.AccountHolderName}
+                                disabled={isEdit}
+                            >
+                            </Form.Control>
+                        </Col>
+                        <Col sm='3'>
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setAccountDetail({ ...accountdetail, Address: e.target.value }) }}
+                                value={accountdetail.Address}
+                            >
+                            </Form.Control>
+                        </Col>
+                        <Col sm='3'>
+                            <Form.Label>PhoneNumber</Form.Label>
+                            <Form.Control
+                                type="number"
+                                onChange={(e) => { setAccountDetail({ ...accountdetail, PhoneNumber: e.target.value }) }}
+                                value={accountdetail.PhoneNumber}
+                            >
+                            </Form.Control>
+                        </Col>
+                        <Col>
+                            <ProofContext.Provider value={{
+                                accountHolderproofType, SetAccountHolderProofType,
+                                accountHolderproofValue, SetAccountHolderProofValue
+                            }}>
+                                <UploadProofs
+                                    submitdisable={submitdisable}
+                                />
+                            </ProofContext.Provider>
+                        </Col>
 
-                <Col sm='3'>
-                    <Form.Label>AccountHolderName</Form.Label>
-                    <Form.Control
-                        type="text"
-                        onChange={(e) => { setAccountDetail({ ...accountdetail, AccountHolderName: e.target.value }) }}
-                        value={accountdetail.AccountHolderName}
-                        disabled={isEdit}
-                    >
-                    </Form.Control>
-                </Col>
-                <Col sm='3'>
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                        type="text"
-                        onChange={(e) => { setAccountDetail({ ...accountdetail, Address: e.target.value }) }}
-                        value={accountdetail.Address}
-                    >
-                    </Form.Control>
-                </Col>
-                <Col sm='3'>
-                    <Form.Label>PhoneNumber</Form.Label>
-                    <Form.Control
-                        type="number"
-                        onChange={(e) => { setAccountDetail({ ...accountdetail, PhoneNumber: e.target.value }) }}
-                        value={accountdetail.PhoneNumber}
-                    >
-                    </Form.Control>
-                </Col>
-
-
-                <Col>
-                    <ProofContext.Provider value={{accountHolderproofType,SetAccountHolderProofType,
-                    accountHolderproofValue,SetAccountHolderProofValue
-                    }}>
-                        <UploadProofs
-                            submitdisable={submitdisable}
-                        />
-                    </ProofContext.Provider>
-                </Col>
-
-                <Col sm='3'>
-                    {isEdit ? <>
-                        <Button onClick={() => handleUpdate()}>Update</Button>
-                    </>
-                        :
-                        <>
-                            <Button onClick={() => handleSave()}>Save</Button>
-                        </>
-                    }
-                </Col>
+                        <Col sm='3'>
+                            {isEdit ? <>
+                                <Button onClick={() => handleUpdate()}>Update</Button>
+                            </>
+                                :
+                                <>
+                                    <Button onClick={() => handleSave()}>Save</Button>
+                                </>
+                            }
+                        </Col>
+                    </Card.Body>
+                </Card>
             </Container>
         </>
     )

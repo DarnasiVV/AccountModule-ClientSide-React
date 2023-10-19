@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Button, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getaccountlistdata } from "../ReduxConcept/actions/getaccountlistaction";
 import { useSelector } from 'react-redux';
@@ -54,42 +54,45 @@ const GetAccountList = () => {
 
     return (
         <>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>AccountHolderName</th>
-                        <th>Address</th>
-                        <th>PhoneNumber</th>
-                        <th>Proofs</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {accountList.initialdata?.map((item: any, index: number) => (
-                        <tr key={index}>
-                            <td>{item.accountHolderName}</td>
-                            <td>{item.address}</td>
-                            <td>{item.phoneNumber}</td>
-                            <td>{item?.proofs?.map((x: any, index: number) => {
-                                return (<>
-                                    <div key={index}>{x.proofType}:{x.proofValue}</div>
-
-                                </>)
-                            })}
-                                <div><Button onClick={() => (UpdateProofHandler(item.id))}>UploadProofs</Button></div>
-                            </td>
-
-                            <td>
-                                {<Button
-                                    onClick={() => UpdateHandler(item.id)}>Update</Button>}
-                                {<Button onClick={() => DeleteHandler(item.id)}>Delete</Button>}
-                            </td>
+            <Container>
+                <Table bordered >
+                    <thead>
+                        <tr>
+                            <th>AccountHolderName</th>
+                            <th>Address</th>
+                            <th>PhoneNumber</th>
+                            <th>Proofs</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </Table>
+                        {accountList.initialdata?.map((item: any, index: number) => (
+                            <tr key={index}>
+                                <td>{item.accountHolderName}</td>
+                                <td>{item.address}</td>
+                                <td>{item.phoneNumber}</td>
+                                <td>{item?.proofs?.map((x: any, index: number) => {
+                                    return (<>
+                                        <div key={index}>{x.proofType}:{x.proofValue}</div>
+
+                                    </>)
+                                })}
+                                    <div><Button onClick={() => (UpdateProofHandler(item.id))}>UploadProofs</Button></div>
+                                </td>
+
+                                <td>
+                                    {<Button
+                                        onClick={() => UpdateHandler(item.id)}>Update</Button>}
+                                    {<Button onClick={() => DeleteHandler(item.id)}>Delete</Button>}
+                                </td>
+                            </tr>
+                        ))}
+
+                    </tbody>
+                </Table>
+            </Container>
+
         </>)
 }
 
